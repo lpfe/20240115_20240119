@@ -99,4 +99,4 @@ for i in want_list:
     inflearn_crawling(i)
 
 df = pd.DataFrame(programming_list)
-df
+df.to_csv('데이터 전처리 전1.csv', index=False)
