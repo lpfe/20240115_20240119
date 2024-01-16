@@ -12,20 +12,20 @@ from crawling_function import inflearn_programming_crawling
 # 크롬을 열고 전체화면으로 전환 인프런 사이트를 엽니다.
 driver = webdriver.Chrome()
 driver.maximize_window()
-driver.get('https://www.inflearn.com/courses/life/finance?order=seq')
 
 # 추출할 데이터를 담을 리스트를 생성합니다.
-programming_list = []
+want_list = ['it-programming', 'game-dev-all','data-science', 'it', 'business', 'hardware']
+list_data = []
 
 # 개발/프로그래밍
 
-def inflearn_programming_crawling():
+def inflearn_crawling(x):
     page = 1
     for i in range(1,10000):
 
         title1=driver.find_element(
             By.XPATH, f'//*[@id="courses_section"]/div/div/div/main/div[4]/div/div[1]/div/a/div[2]/div[1]').text
-        driver.get(f'https://www.inflearn.com/courses/life/finance?order=seq&page={i}')
+        driver.get(f'https://www.inflearn.com/courses/{x}?order=seq&page={i}')
         time.sleep(1)
         
         title2=driver.find_element(
@@ -86,7 +86,7 @@ def inflearn_programming_crawling():
                         class_time = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[3]/div/div/div[2]/aside/div[2]/div[1]/div[2]/div/div[2]').text
 
 
-                    programming_list.append([class_name,class_stunum, class_price, class_grade, class_level, class_time])
+                    list_data.append([class_name,class_stunum, class_price, class_grade, class_level, class_time])
 
                     driver.back()
                     time.sleep(1)
@@ -94,7 +94,9 @@ def inflearn_programming_crawling():
                 break
 
 # 정의한 함수를 불러와 크롤링을 시작합니다.
-inflearn_programming_crawling()
+for i in want_list:
+    driver.get(f'https://www.inflearn.com/courses/{i}?order=seq')
+    inflearn_crawling(i)
 
 df = pd.DataFrame(programming_list)
 df
