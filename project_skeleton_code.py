@@ -7,7 +7,6 @@ from selenium.common.exceptions import NoSuchElementException
 import pandas as pd
 import time
 import re
-from crawling_function import inflearn_programming_crawling
 
 # 크롬을 열고 전체화면으로 전환 인프런 사이트를 엽니다.
 driver = webdriver.Chrome()
