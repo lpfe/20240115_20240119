@@ -14,7 +14,7 @@ driver = webdriver.Chrome()
 driver.maximize_window()
 
 # 추출할 데이터를 담을 리스트를 생성합니다.
-want_list = ['it-programming', 'game-dev-all','data-science', 'it', 'business', 'hardware']
+want_list = ['it-programming', 'game-dev-all','data-science', 'it', 'business/task-automation', 'hardware']
 list_data = []
 
 # 개발/프로그래밍
