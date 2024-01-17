@@ -97,5 +97,5 @@ for i in want_list:
     driver.get(f'https://www.inflearn.com/courses/{i}?order=seq')
     inflearn_crawling(i)
 
-df = pd.DataFrame(programming_list)
+df = pd.DataFrame(list_data)
 df.to_csv('데이터 전처리 전1.csv', index=False)
