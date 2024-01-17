@@ -27,6 +27,10 @@ df['강의시간(분)'] = df['시간'].astype(int)*60 + df['분'].astype(int)
 df = df.drop(['시간', '분', '강의시간'], axis=1)
 df['평점'] = df['평점'].str.extract(r'([\d.]+)').fillna(0).astype(float)
 df['무료/유료'] = df['가격'].apply(lambda x: '무료' if x == 0 else '유료')
+df['강좌명'] =df['강좌명'].duplicated
+# 중복되는 행을 제거합니다.
+df = df[df.duplicated('강좌명', keep=False)]
+
 
 # 회귀 분석을 위한 데이터프레임을 생성합니다. -> 다중공선성 방지 및 One Hot Encoding
 df_regression = df.copy()
