@@ -25,7 +25,7 @@ def inflearn_crawling(x):
         title1=driver.find_element(
             By.XPATH, f'//*[@id="courses_section"]/div/div/div/main/div[4]/div/div[1]/div/a/div[2]/div[1]').text
         driver.get(f'https://www.inflearn.com/courses/{x}?order=seq&page={i}')
-        time.sleep(1)
+        time.sleep(.5)
         
         title2=driver.find_element(
             By.XPATH, f'//*[@id="courses_section"]/div/div/div/main/div[4]/div/div[1]/div/a/div[2]/div[1]').text
@@ -55,10 +55,14 @@ def inflearn_crawling(x):
                         element = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="courses_section"]/div/div/div/main/div[4]/div/div[{i}]/div/a/div[1]/section/video')))
                         driver.execute_script("arguments[0].click();", element)
 
-                    time.sleep(1)
+                    time.sleep(.5)
 
                     # 강좌명
                     class_name = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[1]/div[1]/div/div/div[2]/div[2]/h1').text
+
+                    # 강좌 게시일
+                    class_update_date = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[3]/div/div/div[1]/div/section[4]/div/span[1]').text
+
                     # 강의생 수
                     class_stunum = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[1]/div[1]/div/div/div[2]/div[3]/span[2]/strong').text
                     # 평점
@@ -66,6 +70,13 @@ def inflearn_crawling(x):
                         class_grade = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[1]/div[1]/div/div/div[2]/div[3]/span[1]/strong').text
                     except :
                         class_grade = '0'
+                        pass
+
+                    # 강의평 수
+                    try :
+                        class_grade_count = driver.find_element(By.XPATH, '//*[@id="main"]/section/div[1]/div[1]/div/div/div[2]/div[3]/a').text
+                    except :
+                        class_grade_count = '0'
                         pass
 
                     # 난이도
@@ -88,7 +99,7 @@ def inflearn_crawling(x):
                     list_data.append([class_name,class_stunum, class_price, class_grade, class_level, class_time])
 
                     driver.back()
-                    time.sleep(1)
+                    time.sleep(.5)
             except NoSuchElementException as e:
                 break
 
@@ -98,4 +109,4 @@ for i in want_list:
     inflearn_crawling(i)
 
 df = pd.DataFrame(list_data)
-df.to_csv('데이터 전처리 전1.csv', index=False)
+df.to_csv('데이터 모음음.csv', index=False)
