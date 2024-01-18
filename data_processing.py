@@ -55,7 +55,12 @@ df_regression = df.copy()
 df_regression = pd.concat([df_regression, pd.get_dummies(df_regression['난이도'], prefix='난이도')], axis=1)
 df_regression['유무료'] = df['무료/유료'].apply(lambda x: 1 if x == '유료' else 0) #유료(1)/무료(0)
 df_regression= df_regression.drop(['난이도', '무료/유료'], axis=1)
+
+df_regression['로그_수강생수'] = np.log1p(df_regression['수강생수'])
+df_regression['로그_가격'] = np.log1p(df_regression['가격'])
+df_regression['로그_강의시간'] = np.log1p(df_regression['강의시간_분'])
 df_regression
+
 
 df1 = df_regression.copy()
 # outliers remeove
